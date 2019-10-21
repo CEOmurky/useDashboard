@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="widget.type">
+	<grid-wrapper *ngSwitchCase="'Grid'" [records]="records" [count]="totalCount"></grid-wrapper>
+	<chart-wrapper *ngSwitchCase="'Chart'" [chart]="chart" [records]="records"></chart-wrapper>
+	<analysis *ngSwitchCase="'Filter'"></analysis>
+</ng-container>

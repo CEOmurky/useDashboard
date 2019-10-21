@@ -1,0 +1,79 @@
+<div class="widget-manager-container">
+	<div class="content">
+		<div class="header">
+			<h3>위젯 설정</h3>
+			<div class="right"> 
+				<button mat-button color="primary" (click)="close()">나가기</button>
+			</div>
+		</div>
+		<div class="body">
+			<div class="example-form">
+				<mat-form-field class="example-full-width">
+					<input matInput [(ngModel)]="title" placeholder="위젯 이름">
+				</mat-form-field>
+
+				<p>
+					<mat-form-field class="example-full-width" [class.mat-form-field-invalid]="!verifyQuery">
+						<textarea matInput placeholder="Query" rows="4" [(ngModel)]="queryString"></textarea>
+					</mat-form-field>
+				</p>
+
+				<button mat-button color="primary" (click)="onPreviewQuery()">쿼리 미리보기</button>
+
+				<mat-card *ngIf="records">
+					<grid-wrapper [records]="records" [count]="count" [showPager]="false"></grid-wrapper>
+				</mat-card>
+
+				<div class="detail">
+					<h4>타입 및 새로고침 주기</h4>
+					<mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="currentType">
+						<mat-button-toggle class="widget-type-selector" *ngFor="let widgetType of widgetTypes" [value]="widgetType">{{widgetType}}</mat-button-toggle>
+					</mat-button-toggle-group>
+					<mat-form-field class="example-full-width">
+						<input matInput [(ngModel)]="tick" placeholder="새로고침 주기">
+					</mat-form-field>
+				</div>
+				<div *ngIf="(currentType === 'Chart' && (records || []).length > 0)">
+					<h4>차트 설정</h4>
+					<mat-form-field>
+						<mat-label>차트 타입</mat-label>
+						<select matNativeControl [(ngModel)]="currentChartType" (change)="onChangeChart($event)">
+							<option *ngFor="let chartType of chartTypes" [value]="chartEnum[chartType]">{{chartType}}</option>
+						</select>
+					</mat-form-field>
+
+					<ng-container *ngIf="currentChartType !== 'TwoLevelPie'; else twoLevelPie">
+						<mat-form-field>
+							<mat-label>독립 변수 설정</mat-label>
+							<select matNativeControl [(ngModel)]="currentIndependentVariable">
+								<option *ngFor="let field of fields" [value]="field.key">{{field.key}}</option>
+							</select>
+						</mat-form-field>
+						<mat-label>종속 변수 설정</mat-label>
+						<mat-form-field *ngFor="let currentDependentVariable of dependentVariables; let i = index" >
+							<select matNativeControl [(ngModel)]="currentDependentVariables[i]">
+								<option *ngFor="let field of fields" [value]="field.key">{{field.key}}</option>
+							</select>
+						</mat-form-field>
+						<button *ngIf="currentChartType !== 'Pie'" mat-button color="primary" (click)="onDependentVariable()">종속 변수 추가</button>
+					</ng-container>
+					<ng-template #twoLevelPie>
+						<ng-container *ngFor="let currentDependentVariable of dependentVariables; let i = index">
+							<mat-form-field>
+								<mat-label *ngIf="i === 0">상위 그륩</mat-label>
+								<mat-label *ngIf="i === 1">하위 그륩</mat-label>
+								<mat-label *ngIf="i === 2">크기</mat-label>
+								<select matNativeControl [(ngModel)]="currentDependentVariables[i]">
+									<option *ngFor="let field of fields;" [value]="field.key">{{field.key}}</option>
+								</select>
+							</mat-form-field>
+						</ng-container>
+					</ng-template>
+				</div>
+			</div>
+
+
+			<button mat-button color="primary" (click)="onCreateWidget()">이 위젯 추가 하기</button>
+		</div>
+	</div>
+</div>

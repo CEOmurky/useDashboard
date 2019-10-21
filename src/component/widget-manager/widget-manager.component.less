@@ -1,0 +1,52 @@
+.widget-manager-container {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+
+  .content {
+    position: absolute;
+    width: 700px;
+    left: 50%;
+    top: 50%;
+    max-height: calc(100% - 10px);
+    min-height: 300px;
+    overflow: auto;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: #eee;
+    border-radius: 5px;
+  }
+
+  .exit {
+    position: absolute;
+    right: 100px;
+  }
+
+  .detail {
+    margin-top: 20px;
+  }
+}
+
+.right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.mat-button-toggle-group,
+.mat-form-field,
+.mat-radio-group {
+  margin-bottom: 10px;
+}
+
+.mat-form-field,
+.mat-radio-group {
+  width: 100%;
+}
+
+.widget-type-selector {
+  display: block;
+}

@@ -1,0 +1,12 @@
+<div class="analysis">
+	<div class="date-filter">
+		<div>
+			<edm-datetime-picker [(ngModel)]="from" [fillWidth]="false"></edm-datetime-picker>
+		</div>
+		<div style="margin: 10px;"> ~ </div>
+		<div>
+			<edm-datetime-picker [(ngModel)]="to" [fillWidth]="false"></edm-datetime-picker>
+		</div>
+	</div>
+	<button mat-raised-button color="primary" (click)="onAnalysis()">조회</button>
+</div>
